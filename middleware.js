@@ -28,7 +28,6 @@ export default function middleware(req) {
 // Esto hace que el middleware proteja todas las rutas
 export const config = {
   matcher: [
-    "/:path*",
     "/api/:path*", // Bloquea la API
     "/", // Bloquea el home (index.html)
     "/index.html", // Bloquea el archivo directamente
