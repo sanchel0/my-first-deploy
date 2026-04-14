@@ -7,8 +7,10 @@ export function middleware(req) {
     const authValue = authHeader.split(" ")[1];
     const [user, pwd] = atob(authValue).split(":");
 
-    // Aquí pones tu usuario y contraseña (o mejor usas variables de entorno)
-    if (user === "tu_usuario" && pwd === "tu_password_secreto") {
+    const validUser = process.env.ADMIN_USER;
+    const validPass = process.env.ADMIN_PASS;
+
+    if (user === validUser && pwd === validPass) {
       return NextResponse.next();
     }
   }
@@ -16,12 +18,12 @@ export function middleware(req) {
   return new NextResponse("No autorizado", {
     status: 401,
     headers: {
-      "WWW-Authenticate": 'Basic realm="Secure Area"',
+      "WWW-Authenticate": 'Basic realm="Inventory Admin Area"',
     },
   });
 }
 
-// Esto hace que el middleware proteja TODO el sitio
+// Esto hace que el middleware proteja todas las rutas
 export const config = {
-  matcher: ["/:path*"],
+  matcher: ["/(.*)"],
 };
