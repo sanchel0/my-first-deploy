@@ -1,5 +1,3 @@
-import { NextResponse } from "next/server";
-
 export function middleware(req) {
   const authHeader = req.headers.get("authorization");
 
@@ -11,11 +9,11 @@ export function middleware(req) {
     const validPass = process.env.ADMIN_PASS;
 
     if (user === validUser && pwd === validPass) {
-      return NextResponse.next();
+      return;
     }
   }
 
-  return new NextResponse("No autorizado", {
+  return new Response("No autorizado", {
     status: 401,
     headers: {
       "WWW-Authenticate": 'Basic realm="Inventory Admin Area"',
