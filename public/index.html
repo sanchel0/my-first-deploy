@@ -76,13 +76,22 @@
         async function loadItems() {
             try {
                 const res = await fetch('/api/items');
+
+                if (!res.ok) {
+                    const errorData = await res.json();
+                    console.error("Error del servidor:", errorData);
+                    alert("Error al cargar: " + (errorData.message || "Error desconocido"));
+                    return;
+                }
+
                 const items = await res.json();
                 const tbody = document.querySelector('#itemsTable tbody');
                 tbody.innerHTML = '';
 
-                items.forEach(item => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
+                if (Array.isArray(items)) {
+                    items.forEach(item => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
                     <td>${item.id}</td>
                     <td>${item.name}</td>
                     <td>${item.category}</td>
@@ -93,8 +102,11 @@
                         <button class="btn-delete" onclick="deleteItem(${item.id})">Delete</button>
                     </td>
                 `;
-                    tbody.appendChild(row);
-                });
+                        tbody.appendChild(row);
+                    });
+                } else {
+                    console.error("Los datos recibidos no son un array:", items);
+                }
             } catch (err) {
                 showError("Error loading inventory: " + err.message);
             }

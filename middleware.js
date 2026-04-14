@@ -1,17 +1,20 @@
 export function middleware(req) {
   const authHeader = req.headers.get("authorization");
 
-  if (authHeader) {
-    const authValue = authHeader.split(" ")[1];
-    const [user, pwd] = atob(authValue).split(":");
+  //if (authHeader) {
+  const authValue = authHeader.split(" ")[1];
+  const [user, pwd] = atob(authValue).split(":");
 
-    const validUser = process.env.ADMIN_USER;
-    const validPass = process.env.ADMIN_PASS;
+  console.log(user + ": " + process.env.ADMIN_USER);
+  console.log(pwd + ": " + process.env.ADMIN_PASS);
 
-    if (user === validUser && pwd === validPass) {
-      return;
-    }
+  const validUser = process.env.ADMIN_USER;
+  const validPass = process.env.ADMIN_PASS;
+
+  if (user === validUser && pwd === validPass) {
+    return;
   }
+  //}
 
   return new Response("No autorizado", {
     status: 401,
