@@ -1,4 +1,4 @@
-export function middleware(req) {
+export default function middleware(req) {
   console.log("hello logs...");
   const authHeader = req.headers.get("authorization");
 
