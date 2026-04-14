@@ -1,4 +1,4 @@
-export function middleware(req) {
+export function middleware(req, res) {
   console.log("hello logs...");
   const authHeader = req.headers.get("authorization");
 
@@ -12,7 +12,7 @@ export function middleware(req) {
     const validUser = process.env.ADMIN_USER;
     const validPass = process.env.ADMIN_PASS;
 
-    if (user === validUser && pwd === validPass) {
+    if (user === process.env.ADMIN_USER && pwd === process.env.ADMIN_PASS) {
       return;
     }
   }

@@ -1,6 +1,10 @@
 import * as itemsController from "../controllers/itemsController.js";
 
 export default async function handler(req, res) {
+  console.log("hello from items.js in API.");
+  console.log(process.env.ADMIN_USER);
+  console.log(process.env.ADMIN_PASS);
+
   const { method } = req;
   const { id } = req.query; // Extraemos el ID si existe
 
