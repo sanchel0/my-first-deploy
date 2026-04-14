@@ -1,4 +1,4 @@
-export function middleware(req, res) {
+export default function middleware(req) {
   console.log("hello logs...");
   const authHeader = req.headers.get("authorization");
 
@@ -28,6 +28,7 @@ export function middleware(req, res) {
 // Esto hace que el middleware proteja todas las rutas
 export const config = {
   matcher: [
+    "/:path*",
     "/api/:path*", // Bloquea la API
     "/", // Bloquea el home (index.html)
     "/index.html", // Bloquea el archivo directamente
