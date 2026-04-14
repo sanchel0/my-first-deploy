@@ -1,5 +1,5 @@
-import { supabase } from "../config/supabase";
-import { validateItem } from "../schema/validate";
+import { supabase } from "../config/supabase.js";
+import { validateItem } from "../schema/validate.js";
 
 export const getAll = async (req, res) => {
   try {

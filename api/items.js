@@ -1,4 +1,4 @@
-import * as itemsController from "../controllers/itemsController";
+import * as itemsController from "../controllers/itemsController.js";
 
 export default async function handler(req, res) {
   const { method } = req;
